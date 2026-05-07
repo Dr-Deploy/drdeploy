@@ -106,6 +106,17 @@ jobs:
           echo "mcp_published=$PUBLISHED" >> "$GITHUB_OUTPUT"
           echo "@drdeploy/mcp published this run: $PUBLISHED"
 
+      # The install.sh in drdeploy.dev (served via Rails) downloads SHA256SUMS
+      # alongside the binary and verifies the hash before installing. Without
+      # this file the install pipeline aborts with "release manifest broken".
+      - name: Generate SHA256SUMS
+        if: steps.changesets.outputs.published == 'true'
+        working-directory: packages/cli/dist
+        run: |
+          shasum -a 256 drdeploy-* > SHA256SUMS
+          echo "Generated SHA256SUMS:"
+          cat SHA256SUMS
+
       - name: Attach binaries to GitHub Release
         if: steps.changesets.outputs.published == 'true'
         env:
@@ -134,8 +145,8 @@ jobs:
               --notes "Auto-generated release for $TAG. Binaries attached: drdeploy-{darwin,linux}-{arm64,x64}."
           fi
 
-          echo "Uploading binaries to $TAG..."
-          gh release upload "$TAG" packages/cli/dist/drdeploy-* --clobber
+          echo "Uploading binaries + SHA256SUMS to $TAG..."
+          gh release upload "$TAG" packages/cli/dist/drdeploy-* packages/cli/dist/SHA256SUMS --clobber
 
   # ─── Publish to MCP Registry (registry.modelcontextprotocol.io) ───────────
   # Runs only when @drdeploy/mcp publishes to npm. GitHub OIDC auth (no secrets).

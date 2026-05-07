@@ -13,7 +13,7 @@
     },
     "packages/cli": {
       "name": "@drdeploy/cli",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "bin": {
         "drdeploy": "./bin/drdeploy.js",
       },
@@ -24,7 +24,10 @@
     },
     "packages/mcp": {
       "name": "@drdeploy/mcp",
-      "version": "0.1.0",
+      "version": "0.1.1",
+      "bin": {
+        "drdeploy-mcp": "./dist/bin.js",
+      },
       "dependencies": {
         "@modelcontextprotocol/sdk": "^1.29.0",
         "zod": "^4.4.3",
@@ -35,7 +38,7 @@
     },
     "packages/skills": {
       "name": "@drdeploy/skills",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "bin": {
         "drdeploy-skills": "./dist/cli.js",
       },

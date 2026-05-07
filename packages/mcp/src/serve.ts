@@ -22,7 +22,8 @@ export interface ServeOptions {
   version?: string;
 }
 
-const VERSION = "0.0.0";
+import pkg from "../package.json" with { type: "json" };
+const VERSION = pkg.version;
 
 /**
  * Start the MCP server on stdio. Resolves once the underlying transport

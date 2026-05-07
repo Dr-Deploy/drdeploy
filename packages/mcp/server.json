@@ -3,7 +3,7 @@
   "name": "io.github.dr-deploy/drdeploy-mcp",
   "title": "Dr.Deploy",
   "description": "Live monitor for shipped websites. Exposes scan / list_sites / get_findings / get_status as MCP tools so AI editors can audit a deployed site for leaked API keys, broken og:image, missing favicons, exposed .env files, security header gaps, and SEO regressions.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "websiteUrl": "https://drdeploy.dev",
   "repository": {
     "url": "https://github.com/Dr-Deploy/drdeploy",
@@ -15,7 +15,7 @@
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "@drdeploy/mcp",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "runtimeHint": "npx",
       "transport": {
         "type": "stdio"

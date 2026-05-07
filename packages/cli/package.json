@@ -1,6 +1,6 @@
 {
   "name": "@drdeploy/cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "drdeploy CLI — post-deploy scanner for shipped websites. Catches leaked API keys, broken og:image, missing favicons, exposed .env files. Single static binary.",
   "keywords": [
     "drdeploy",
@@ -32,9 +32,9 @@
     "dev": "bun run src/index.ts",
     "build": "bun build ./src/index.ts --compile --target=bun --outfile=./dist/drdeploy",
     "build:darwin-arm64": "bun build ./src/index.ts --compile --target=bun-darwin-arm64 --outfile=./dist/drdeploy-darwin-arm64",
-    "build:darwin-x64":   "bun build ./src/index.ts --compile --target=bun-darwin-x64   --outfile=./dist/drdeploy-darwin-x64",
-    "build:linux-arm64":  "bun build ./src/index.ts --compile --target=bun-linux-arm64  --outfile=./dist/drdeploy-linux-arm64",
-    "build:linux-x64":    "bun build ./src/index.ts --compile --target=bun-linux-x64    --outfile=./dist/drdeploy-linux-x64",
+    "build:darwin-x64": "bun build ./src/index.ts --compile --target=bun-darwin-x64   --outfile=./dist/drdeploy-darwin-x64",
+    "build:linux-arm64": "bun build ./src/index.ts --compile --target=bun-linux-arm64  --outfile=./dist/drdeploy-linux-arm64",
+    "build:linux-x64": "bun build ./src/index.ts --compile --target=bun-linux-x64    --outfile=./dist/drdeploy-linux-x64",
     "build:all": "bun run build:darwin-arm64 && bun run build:darwin-x64 && bun run build:linux-arm64 && bun run build:linux-x64",
     "typecheck": "tsc --noEmit",
     "test": "bun test",

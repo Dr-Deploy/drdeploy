@@ -10,14 +10,20 @@
     {
       "name": "drdeploy",
       "description": "Scan a live website for leaked API keys, broken og:image, missing favicons, exposed .env files, and SEO regressions. Use after any deploy to verify nothing embarrassing shipped.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "author": {
         "name": "Dr-Deploy",
         "email": "support@drdeploy.dev"
       },
       "homepage": "https://drdeploy.dev",
       "category": "deployment",
-      "tags": ["monitoring", "security", "secrets-scanner", "post-deploy", "seo"],
+      "tags": [
+        "monitoring",
+        "security",
+        "secrets-scanner",
+        "post-deploy",
+        "seo"
+      ],
       "source": {
         "source": "github",
         "repo": "Dr-Deploy/drdeploy",

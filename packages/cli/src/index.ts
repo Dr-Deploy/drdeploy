@@ -5,7 +5,8 @@
 // commands/* and exports a default async fn. Bun lazy-loads imports
 // it doesn't reach, so the help-only path stays fast.
 
-const VERSION = "0.0.0";
+import pkg from "../package.json" with { type: "json" };
+const VERSION = pkg.version;
 
 const subcommand = process.argv[2];
 

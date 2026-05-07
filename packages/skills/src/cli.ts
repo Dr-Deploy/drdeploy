@@ -8,8 +8,8 @@
 
 import { setup } from "./setup.ts";
 import { uninstall } from "./uninstall.ts";
-
-const VERSION = "0.1.0";
+import pkg from "../package.json" with { type: "json" };
+const VERSION = pkg.version;
 
 const cmd = process.argv[2];
 

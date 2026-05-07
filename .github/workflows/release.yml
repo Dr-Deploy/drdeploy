@@ -32,6 +32,11 @@ jobs:
       - name: Install
         run: bun install --frozen-lockfile
 
+      # Same workspace-libs prebuild as CI — @drdeploy/cli imports from
+      # @drdeploy/mcp/serve which only exists after tsup runs.
+      - name: Build workspace libraries
+        run: bun run build:libs
+
       - name: Build binary
         working-directory: packages/cli
         run: |

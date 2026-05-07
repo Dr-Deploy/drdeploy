@@ -24,8 +24,16 @@ jobs:
       - name: Install
         run: bun install --frozen-lockfile
 
+      # Build the workspace libraries (mcp + skills) before typecheck.
+      # @drdeploy/cli imports `@drdeploy/mcp/serve`, which the mcp package's
+      # `exports` map resolves to `./dist/serve.js`. That file doesn't exist
+      # until tsup runs. Without this step typecheck and the static-binary
+      # build both fail with "Could not resolve: @drdeploy/mcp/serve".
+      - name: Build workspace libraries
+        run: bun run build:libs
+
       - name: Typecheck
-        run: bun run typecheck
+        run: bun run --filter='*' typecheck
 
       - name: Test
         run: bun test

@@ -7,8 +7,9 @@
   "workspaces": ["packages/*"],
   "scripts": {
     "build": "bun run --filter='*' build",
+    "build:libs": "bun run --filter='@drdeploy/mcp' build && bun run --filter='@drdeploy/skills' build",
     "test": "bun test",
-    "typecheck": "bun run --filter='*' typecheck",
+    "typecheck": "bun run build:libs && bun run --filter='*' typecheck",
     "changeset": "changeset",
     "release": "changeset publish"
   },

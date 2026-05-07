@@ -10,7 +10,7 @@
     {
       "name": "drdeploy",
       "description": "Scan a live website for leaked API keys, broken og:image, missing favicons, exposed .env files, and SEO regressions. Use after any deploy to verify nothing embarrassing shipped.",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "author": {
         "name": "Dr-Deploy",
         "email": "support@drdeploy.dev"

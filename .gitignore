@@ -9,3 +9,4 @@ node_modules/
 
 # Compiled CLI binaries (built by release CI, not committed)
 packages/cli/bin/drdeploy-*
+.tools/

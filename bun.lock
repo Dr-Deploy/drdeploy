@@ -13,7 +13,7 @@
     },
     "packages/cli": {
       "name": "@drdeploy/cli",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "bin": {
         "drdeploy": "./bin/drdeploy.js",
       },
@@ -24,7 +24,7 @@
     },
     "packages/mcp": {
       "name": "@drdeploy/mcp",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "bin": {
         "drdeploy-mcp": "./dist/bin.js",
       },
@@ -38,7 +38,7 @@
     },
     "packages/skills": {
       "name": "@drdeploy/skills",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "bin": {
         "drdeploy-skills": "./dist/cli.js",
       },

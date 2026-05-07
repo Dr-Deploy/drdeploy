@@ -1,6 +1,6 @@
 {
   "name": "@drdeploy/mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Model Context Protocol server for drdeploy — exposes site scanning, findings, and status as MCP tools to AI editors (Claude Code, Cursor, Cline, Continue).",
   "keywords": [
     "drdeploy",

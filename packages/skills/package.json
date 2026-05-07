@@ -1,6 +1,6 @@
 {
   "name": "@drdeploy/skills",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Claude Code / Cursor / Cline skills for drdeploy. One command sets up SKILL.md files, installs the drdeploy CLI binary, and adds drdeploy routing to your CLAUDE.md.",
   "keywords": [
     "drdeploy",

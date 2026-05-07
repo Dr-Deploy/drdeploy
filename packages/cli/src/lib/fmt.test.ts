@@ -1,5 +1,5 @@
 import { test, expect } from "bun:test";
-import { table, visibleLength } from "./fmt.ts";
+import { table, visibleLength, relativeTime } from "./fmt.ts";
 
 // Force colors off so the table output contains no ANSI sequences and
 // alignment is directly observable in the assertions below. (We
@@ -25,6 +25,34 @@ test("visibleLength ignores ANSI escape sequences", () => {
 test("visibleLength treats combining marks as width 0", () => {
   // "é" as e + combining acute = 1 column, not 2.
   expect(visibleLength("é")).toBe(1);
+});
+
+test("relativeTime returns '—' for null/undefined/empty input", () => {
+  expect(relativeTime(null)).toBe("—");
+  expect(relativeTime(undefined)).toBe("—");
+  expect(relativeTime("")).toBe("—");
+});
+
+test("relativeTime falls back to the raw string on unparseable input", () => {
+  expect(relativeTime("not a date")).toBe("not a date");
+});
+
+test("relativeTime renders the past with an 'ago' suffix", () => {
+  // Pin `now` so the assertions don't drift with wall-clock time.
+  const now = Date.parse("2026-05-07T12:00:00Z");
+  expect(relativeTime("2026-05-07T11:59:50Z", now)).toBe("moments ago"); // 10 sec
+  expect(relativeTime("2026-05-07T11:55:00Z", now)).toBe("5m ago");      // 5 min
+  expect(relativeTime("2026-05-07T10:00:00Z", now)).toBe("2h ago");      // 2 hr
+  expect(relativeTime("2026-05-05T12:00:00Z", now)).toBe("2d ago");      // 2 day
+  expect(relativeTime("2026-02-07T12:00:00Z", now)).toBe("3mo ago");     // ~3 mo
+  expect(relativeTime("2024-05-07T12:00:00Z", now)).toBe("2y ago");      // 2 yr
+});
+
+test("relativeTime renders the future with an 'in' prefix", () => {
+  const now = Date.parse("2026-05-07T12:00:00Z");
+  expect(relativeTime("2026-05-07T12:00:10Z", now)).toBe("in a moment");
+  expect(relativeTime("2026-05-07T12:05:00Z", now)).toBe("in 5m");
+  expect(relativeTime("2026-05-08T12:00:00Z", now)).toBe("in 1d");
 });
 
 test("table aligns columns when CJK content is present", () => {

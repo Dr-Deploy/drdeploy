@@ -24,7 +24,7 @@
     },
     "packages/mcp": {
       "name": "@drdeploy/mcp",
-      "version": "0.1.3",
+      "version": "0.1.4",
       "bin": {
         "drdeploy-mcp": "./dist/bin.js",
       },

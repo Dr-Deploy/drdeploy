@@ -113,12 +113,29 @@ jobs:
         run: |
           # Each published package may have its own tag (e.g., @drdeploy/cli@0.1.0).
           # We attach the static binaries to the cli tag.
+          #
+          # Changesets only creates GitHub releases when the run consumed
+          # actual `.changeset/*.md` files (i.e. the "Version Packages" PR
+          # flow). On bootstrap or no-changeset publishes we still get git
+          # tags pushed, but no GH release object — so `gh release upload`
+          # 404s. We create-or-update here so the binary attach is robust
+          # to either flow.
           TAG=$(jq -r '.[] | select(.name=="@drdeploy/cli") | "\(.name)@\(.version)"' \
             <<< '${{ steps.changesets.outputs.publishedPackages }}')
-          if [ -n "$TAG" ]; then
-            echo "Uploading binaries to $TAG..."
-            gh release upload "$TAG" packages/cli/dist/drdeploy-* --clobber
+          if [ -z "$TAG" ]; then
+            echo "@drdeploy/cli not in publishedPackages — nothing to attach"
+            exit 0
           fi
+
+          if ! gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG does not exist yet — creating it..."
+            gh release create "$TAG" \
+              --title "$TAG" \
+              --notes "Auto-generated release for $TAG. Binaries attached: drdeploy-{darwin,linux}-{arm64,x64}."
+          fi
+
+          echo "Uploading binaries to $TAG..."
+          gh release upload "$TAG" packages/cli/dist/drdeploy-* --clobber
 
   # ─── Publish to MCP Registry (registry.modelcontextprotocol.io) ───────────
   # Runs only when @drdeploy/mcp publishes to npm. GitHub OIDC auth (no secrets).

@@ -21,7 +21,7 @@ The same product, six surfaces:
 curl -fsSL https://drdeploy.dev/install | sh
 
 # Mac power users
-brew install drdeploy/tap/drdeploy
+brew install dr-deploy/tap/drdeploy
 
 # Node ecosystem devs
 npm install -g @drdeploy/cli

@@ -1,0 +1,25 @@
+{
+  "name": "drdeploy-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Public source for drdeploy CLI, MCP server, and Claude Code skills.",
+  "type": "module",
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "build": "bun run --filter='*' build",
+    "test": "bun test",
+    "typecheck": "bun run --filter='*' typecheck",
+    "changeset": "changeset",
+    "release": "changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.7",
+    "@types/bun": "latest",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0"
+  },
+  "packageManager": "bun@1.3.0",
+  "engines": {
+    "bun": ">=1.3.0"
+  }
+}

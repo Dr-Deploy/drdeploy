@@ -1,0 +1,51 @@
+{
+  "name": "@drdeploy/skills",
+  "version": "0.1.0",
+  "description": "Claude Code / Cursor / Cline skills for drdeploy. One command sets up SKILL.md files, installs the drdeploy CLI binary, and adds drdeploy routing to your CLAUDE.md.",
+  "keywords": [
+    "drdeploy",
+    "claude-code",
+    "claude",
+    "cursor",
+    "cline",
+    "skill",
+    "claude-skill",
+    "ai-editor",
+    "agent-skill"
+  ],
+  "homepage": "https://drdeploy.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Dr-Deploy/drdeploy.git",
+    "directory": "packages/skills"
+  },
+  "bugs": {
+    "url": "https://github.com/Dr-Deploy/drdeploy/issues"
+  },
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "drdeploy-skills": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "bun test",
+    "prepublishOnly": "bun run build"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.0"
+  },
+  "files": [
+    "dist",
+    "skill",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.dr-deploy/drdeploy-mcp",
+  "title": "Dr.Deploy",
+  "description": "Live monitor for shipped websites. Exposes scan / list_sites / get_findings / get_status as MCP tools so AI editors can audit a deployed site for leaked API keys, broken og:image, missing favicons, exposed .env files, security header gaps, and SEO regressions.",
+  "version": "0.1.0",
+  "websiteUrl": "https://drdeploy.dev",
+  "repository": {
+    "url": "https://github.com/Dr-Deploy/drdeploy",
+    "source": "github",
+    "subfolder": "packages/mcp"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "@drdeploy/mcp",
+      "version": "0.1.0",
+      "runtimeHint": "npx",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "DRDEPLOY_TOKEN",
+          "description": "Bearer token for the drdeploy API. Get one by signing up at https://drdeploy.dev and running `drdeploy login` (or via the dashboard at https://drdeploy.dev/integrations/api).",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "DRDEPLOY_API_HOST",
+          "description": "Override the API host. Defaults to https://drdeploy.dev.",
+          "isRequired": false,
+          "isSecret": false,
+          "default": "https://drdeploy.dev"
+        }
+      ]
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "tool": "github-actions",
+      "build_info": {
+        "repository": "Dr-Deploy/drdeploy",
+        "ref": "main"
+      }
+    }
+  }
+}

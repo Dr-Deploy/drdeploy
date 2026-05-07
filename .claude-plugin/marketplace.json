@@ -1,0 +1,28 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "drdeploy",
+  "description": "Dr.Deploy plugin for Claude Code — scan deployed websites for leaked API keys, broken og:image, missing favicons, exposed .env files, security header gaps, and SEO regressions.",
+  "owner": {
+    "name": "Dr-Deploy",
+    "email": "support@drdeploy.dev"
+  },
+  "plugins": [
+    {
+      "name": "drdeploy",
+      "description": "Scan a live website for leaked API keys, broken og:image, missing favicons, exposed .env files, and SEO regressions. Use after any deploy to verify nothing embarrassing shipped.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Dr-Deploy",
+        "email": "support@drdeploy.dev"
+      },
+      "homepage": "https://drdeploy.dev",
+      "category": "deployment",
+      "tags": ["monitoring", "security", "secrets-scanner", "post-deploy", "seo"],
+      "source": {
+        "source": "github",
+        "repo": "Dr-Deploy/drdeploy",
+        "path": "packages/skills/skill"
+      }
+    }
+  ]
+}

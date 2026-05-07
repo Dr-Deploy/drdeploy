@@ -1,0 +1,68 @@
+{
+  "name": "@drdeploy/mcp",
+  "version": "0.1.0",
+  "description": "Model Context Protocol server for drdeploy — exposes site scanning, findings, and status as MCP tools to AI editors (Claude Code, Cursor, Cline, Continue).",
+  "keywords": [
+    "drdeploy",
+    "mcp",
+    "model-context-protocol",
+    "claude-code",
+    "cursor",
+    "cline",
+    "ai-editor",
+    "site-monitor"
+  ],
+  "homepage": "https://drdeploy.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Dr-Deploy/drdeploy.git",
+    "directory": "packages/mcp"
+  },
+  "bugs": {
+    "url": "https://github.com/Dr-Deploy/drdeploy/issues"
+  },
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "drdeploy-mcp": "./dist/bin.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./tools": {
+      "types": "./dist/tools.d.ts",
+      "default": "./dist/tools.js"
+    },
+    "./serve": {
+      "types": "./dist/serve.d.ts",
+      "default": "./dist/serve.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "bun test",
+    "prepublishOnly": "bun run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
+}

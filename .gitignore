@@ -1,0 +1,11 @@
+node_modules/
+**/dist/
+**/vendor/drdeploy-*
+*.log
+.DS_Store
+.env
+.env.local
+**/*.tsbuildinfo
+
+# Compiled CLI binaries (built by release CI, not committed)
+packages/cli/bin/drdeploy-*

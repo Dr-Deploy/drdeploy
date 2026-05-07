@@ -1,0 +1,2 @@
+# Platform-specific drdeploy binaries land here at npm install time
+# (downloaded by scripts/postinstall.js from GitHub Releases).

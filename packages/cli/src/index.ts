@@ -81,18 +81,22 @@ function printHelp(): void {
 USAGE
   drdeploy <command> [args]
 
-COMMANDS
+AUTH
   login                authenticate via OAuth 2.0 device flow
   logout               revoke local token
+
+SITES
   add <url>            register a new site for monitoring
-  list / ls            list sites under the current workspace
+  list, ls             list sites under the current workspace
   scan <host|id>       trigger a scan now
-  status               show service health + last-check times (planned)
-  watch [url]          daemon — re-scan on every git push     (planned)
+
+AI AGENTS
   mcp serve            run the embedded MCP server (called by AI editors)
   mcp install          configure your local AI agent (Claude/Cursor/Cline)
-  --version            print version
-  --help               this message
+
+OTHER
+  --version, -v        print version
+  --help, -h           this message
 
 ENV
   DRDEPLOY_API_HOST    override the API host (default: https://drdeploy.dev)

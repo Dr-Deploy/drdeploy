@@ -16,6 +16,7 @@ import * as v from "valibot";
 import { postJson } from "../lib/api.ts";
 import { writeToken, tokenExists } from "../lib/config.ts";
 import { openInBrowser } from "../lib/browser.ts";
+import { bold, cyan, dim, green } from "../lib/fmt.ts";
 
 const DeviceStartResponseSchema = v.object({
   device_code: v.string(),
@@ -75,9 +76,9 @@ export default async function login(): Promise<void> {
 
   await writeToken(token);
   console.log("");
-  console.log("✓ Signed in. Token saved.");
+  console.log(`${green("✓")} Signed in. Token saved.`);
   console.log("");
-  console.log("Try:  drdeploy list");
+  console.log(`Try:  ${cyan("drdeploy list")}`);
 }
 
 function printPrompt(start: DeviceStartResponse): void {
@@ -85,18 +86,18 @@ function printPrompt(start: DeviceStartResponse): void {
   // verification_uri_complete (built from APP_HOST in Rails). Print
   // verbatim — prepending apiHost() gave us double-host strings like
   // "http://localhostHTTP://localhost/auth/device" in the wild.
+  //
+  // Lead with the prefilled URL (one click from approve) and surface
+  // the bare URL + code only as the manual fallback. The earlier layout
+  // printed the bare URL first and the prefilled link last, which
+  // pushed the user toward the slower path.
   console.log("");
-  console.log(`To finish signing in, visit:`);
-  console.log(`        ${start.verification_uri}`);
+  console.log(`Open this URL in your browser to approve:`);
+  console.log(`  ${cyan(start.verification_uri_complete)}`);
   console.log("");
-  console.log(`and enter this code:`);
+  console.log(dim(`Browser didn't open? Visit ${start.verification_uri} and enter ${bold(start.user_code)}`));
   console.log("");
-  console.log(`        ${start.user_code}`);
-  console.log("");
-  console.log(`Or open the prefilled page:`);
-  console.log(`        ${start.verification_uri_complete}`);
-  console.log("");
-  console.log("Waiting for approval…");
+  console.log(dim("Waiting for approval…"));
 }
 
 async function pollForToken(start: DeviceStartResponse): Promise<string | null> {

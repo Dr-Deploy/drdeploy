@@ -18,7 +18,10 @@ const supportsColor = detectColorSupport();
 
 function paint(open: number, close: number, s: string): string {
   if (!supportsColor) return s;
-  return `[${open}m${s}[${close}m`;
+  // ESC = \x1b (ASCII 27). Without this prefix the terminal sees the
+  // bracket sequence as literal text and prints "[36m...[39m" instead
+  // of rendering color. See `drdeploy ls` output before this fix.
+  return `\x1b[${open}m${s}\x1b[${close}m`;
 }
 
 export const dim    = (s: string): string => paint(2,  22, s);
@@ -27,6 +30,31 @@ export const red    = (s: string): string => paint(31, 39, s);
 export const green  = (s: string): string => paint(32, 39, s);
 export const yellow = (s: string): string => paint(33, 39, s);
 export const cyan   = (s: string): string => paint(36, 39, s);
+
+/** Format an ISO timestamp as a compact relative duration. Optimised
+ *  for table cells: max ~8 chars wide. Past times read "2h ago",
+ *  future times read "in 3d". Falls back to the raw input on parse
+ *  failure (so a string we don't recognise prints rather than vanishes). */
+export function relativeTime(iso: string | null | undefined, now: number = Date.now()): string {
+  if (!iso) return "—";
+  const t = Date.parse(iso);
+  if (!Number.isFinite(t)) return iso;
+
+  const diffMs = t - now;
+  const past = diffMs <= 0;
+  const sec = Math.abs(diffMs) / 1000;
+
+  let v: string;
+  if (sec < 45)            v = "moments";
+  else if (sec < 3600)     v = `${Math.round(sec / 60)}m`;
+  else if (sec < 86400)    v = `${Math.round(sec / 3600)}h`;
+  else if (sec < 86400*30) v = `${Math.round(sec / 86400)}d`;
+  else if (sec < 86400*365)v = `${Math.round(sec / (86400*30))}mo`;
+  else                     v = `${Math.round(sec / (86400*365))}y`;
+
+  if (v === "moments") return past ? "moments ago" : "in a moment";
+  return past ? `${v} ago` : `in ${v}`;
+}
 
 export interface Column<Row> {
   header: string;
@@ -76,7 +104,7 @@ function pad(s: string, width: number): string {
 // wide instead of 4 and downstream pad() would under-pad the column.
 export function visibleLength(s: string): number {
   // eslint-disable-next-line no-control-regex
-  const stripped = s.replace(/\[[0-9;]*m/g, "");
+  const stripped = s.replace(/\x1b\[[0-9;]*m/g, "");
   let width = 0;
   for (const ch of stripped) {
     width += charWidth(ch.codePointAt(0)!);

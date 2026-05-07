@@ -6,7 +6,7 @@
 import * as v from "valibot";
 import { getJson } from "../lib/api.ts";
 import { requireToken } from "../lib/auth.ts";
-import { table, dim, green, yellow, cyan } from "../lib/fmt.ts";
+import { table, dim, green, yellow, cyan, relativeTime } from "../lib/fmt.ts";
 
 const ListResponseSchema = v.object({
   workspace: v.object({
@@ -48,7 +48,7 @@ export default async function list(): Promise<void> {
       { header: "HOST",      get: (s) => s.host },
       { header: "ENV",       get: (s) => s.environment },
       { header: "VERIFIED",  get: (s) => s.verified ? green("yes") : yellow("pending") },
-      { header: "LAST SCAN", get: (s) => s.last_scanned_at ?? dim("—") }
+      { header: "LAST SCAN", get: (s) => s.last_scanned_at ? relativeTime(s.last_scanned_at) : dim("never") }
     ])
   );
   console.log("");
